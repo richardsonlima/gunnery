@@ -29,21 +29,18 @@ If your application is divided into multiple servers, you are probably connectin
 ![test](https://raw.github.com/Eyjafjallajokull/gunnery/gh-pages/img/2.png)
 ![test](https://raw.github.com/Eyjafjallajokull/gunnery/gh-pages/img/fig.gif)
 
-Installation
-^^^^^^^^^^^^
+### Installation
 
 Instructions on this page will guide you through installation process. You can choose to use puppet tool or setup everything manually.
 
-Dependencies
-~~~~~~~~~~~~
+### Dependencies
 
 Supported python version is 2.7, below is the list of packages required to run project:
 
 .. include:: ../requirements/common.txt
    :literal:
 
-Provisioning with Puppet
-~~~~~~~~~~~~~~~~~~~~~~~~
+### Provisioning with Puppet
 
 Gunnery repository contains puppet manifests, which can help setting up infrastructure required to run application.
 Puppet manifests are supported for systems:
@@ -70,8 +67,7 @@ The last step is to edit ``/var/gunnery/gunnery/gunnery/settings/production.py``
 ``ALLOWED_HOSTS`` directive to the domain (or IP address) that your instance will be running on.
 Boom, if everything went well you have working application.
 
-Manual Installation
-~~~~~~~~~~~~~~~~~~~
+###  Manual Installation
 
 Gunnery may seem like a simple app, but it depends on a few components.
 This document will guide you through the process of installing all of
@@ -90,8 +86,7 @@ Debian-based and that all services are running on a single machine.
                 |                              |
                 +----------> Queue <-----------+
 
-Setup Database
---------------
+### Setup Database
 
 PostgreSQL is the recommended database for Django projects, although
 other types may be used as well.
@@ -104,7 +99,7 @@ A ``gunnery`` user without the ``createdb`` or ``superuser`` permissions
 must be created along with a database ``gunnery``, which will be owned
 by the ``gunnery`` user.
 
-In short:
+### In short:
 
 ::
 
@@ -114,8 +109,7 @@ In short:
     sudo -u postgres createuser -D -S -P gunnery
     sudo -u postgres createdb -O gunnery gunnery
 
-Setup Application
------------------
+### Setup Application
 
 Download the gunnery application by cloning the repository. The
 recommended path is ``/var/gunnery``:
@@ -161,8 +155,7 @@ Optionally you can build html documentation with command: ::
     cd /var/gunnery/docs
     make htmlembedded
 
-Install RabbitMQ
-----------------
+### Install RabbitMQ
 
 Celery requires a messaging queue for its operation, RabbitMQ being the
 recommended option. Refer to the Celery documentation for information
@@ -172,8 +165,7 @@ about using alternatives.
 
     sudo apt-get install rabbitmq
 
-Configure Celery
-----------------
+### Configure Celery
 
 Celery was installed in a previous step (``pip install``), it needs to be configured now.
 
@@ -187,8 +179,7 @@ Celery was installed in a previous step (``pip install``), it needs to be config
     sudo vim /etc/default/celeryd
     sudo service celeryd start
 
-Configure uWSGI
----------------
+### Configure uWSGI
 
 We're going to use uWSGI to manage our Python processes. Just like celery it was installed by pip as a dependency. We need
 to create init script for it. Copy the example file and adjust variables (search for ``<% ... %>``)
@@ -204,7 +195,7 @@ to create init script for it. Copy the example file and adjust variables (search
 -  replace ``<%= @run_path %>`` with ``/var/gunnery/run``
 -  replace ``<%= @virtualenv_path %>`` with ``/var/gunnery/virtualenv``
 
-Next, setup gunnery-specific configuration:
+### Next, setup gunnery-specific configuration:
 
 ::
 
@@ -227,8 +218,7 @@ the logs for errors, and validate if the socket file exists.
 
     sudo service uwsgi start
 
-Install Nginx
--------------
+### Install Nginx
 
 No magic here. Simply install, copy the provided template, and customize
 to your needs.
@@ -240,8 +230,7 @@ to your needs.
     sudo vim /etc/nginx/sites-enabled/gunnery
     sudo service nginx reload
 
-Support
-~~~~~~~
+### Support
 
 If you run into trouble and can’t figure out how to solve it yourself, you can get help via `Github issue tracker <https://github.com/Eyjafjallajokull/gunnery/issues/new>`__.
 
