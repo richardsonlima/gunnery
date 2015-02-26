@@ -104,6 +104,7 @@ by the ``gunnery`` user.
 ::
 
     sudo apt-get install postgresql postgresql-contrib
+    sudo apt-get install postgresql-server-dev-9.4
     sudo -u postgres psql postgres
     \password postgres
     sudo -u postgres createuser -D -S -P gunnery
